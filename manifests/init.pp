@@ -16,7 +16,7 @@ class backup ($duplicity_passphrase = 'backmeup', $aws_access_key_id = '', $aws_
   package {'duplicity':
     ensure  => present,
     require => [
-      File['/etc/apt/preferences.d/drush.pref'],
+      File['/etc/apt/preferences.d/duplicity.pref'],
       Class["apt::backports"],
       Exec['update_apt'],
       Package['python-boto'],
