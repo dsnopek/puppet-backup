@@ -1,0 +1,4 @@
+Package: duplicity
+Pin: release a=squeeze-backports
+Pin-Priority: 1001
+

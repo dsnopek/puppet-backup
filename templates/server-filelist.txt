@@ -1,0 +1,3 @@
+<% filelist.each do |val| -%>
+<%= val %>
+<% end -%>
