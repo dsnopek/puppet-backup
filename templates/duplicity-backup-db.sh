@@ -46,9 +46,9 @@ if [[ -n "$BACKUPMYSQL" && "$BACKUPMYSQL" -gt 0 ]]; then
  DBS="$($MYSQL -u $MUSER -h $MHOST -p$MPASS -Bse 'show databases')"
  for db in $DBS
  do
-  if [ "$db" != "information_schema" ]; then
+  if [[ "$db" != "information_schema" && "$db" != "performance_schema" ]]; then
    
-   $MYSQLDUMP -u $MUSER -h $MHOST -p$MPASS $db | $GZIP -9 > $MYSQLTMPDIR/mysql-$db
+   $MYSQLDUMP --skip-lock-tables -u $MUSER -h $MHOST -p$MPASS $db | $GZIP -9 > $MYSQLTMPDIR/mysql-$db
   fi
  done
 fi
