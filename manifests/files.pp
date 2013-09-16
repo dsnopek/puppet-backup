@@ -21,6 +21,15 @@ class backup::files ($filelist = "UNSET", $s3path = "UNSET", $hour = 2, $minute 
     require => Class['backup'],
   }
 
+  file {'/usr/local/sbin/duplicity-restore-file.sh':
+    ensure  => file,
+    owner   => '0',
+    group   => '0',
+    mode    => '0700',
+    content => template('backup/duplicity-restore-file.sh'),
+    require => Class['backup'],
+  }
+
   cron {'duplicity-backup-files.sh':
     command => "/usr/local/sbin/duplicity-backup-files.sh",
     user    => root,
