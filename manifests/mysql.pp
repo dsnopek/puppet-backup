@@ -22,6 +22,15 @@ class backup::mysql ($s3path = 'UNSET', $mysql_user = 'backupdb', $mysql_passwor
     require => [ Class['backup'], Database_grant["$mysql_user@localhost"] ]
   }
 
+  file {'/usr/local/sbin/duplicity-restore-db.sh':
+    ensure  => file,
+    owner   => '0',
+    group   => '0',
+    mode    => '0700',
+    content => template('backup/duplicity-restore-db.sh'),
+    require => [ Class['backup'], Database_grant["$mysql_user@localhost"] ]
+  }
+
   cron {'duplicity-backup-db.sh':
     command => "/usr/local/sbin/duplicity-backup-db.sh",
     user    => root,
